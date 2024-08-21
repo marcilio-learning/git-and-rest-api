@@ -27,10 +27,10 @@ export default class BancoEmMemoria {
             if (anoFinal && livro.ano > anoFinal)
                 return false
 
-            if (notaInicial && livro.nota < notaInicial)
+            if (notaInicial && (!livro.nota || livro.nota < notaInicial))
                 return false
 
-            if (notaFinal && livro.nota > notaFinal)
+            if (notaFinal && (!livro.nota || livro.nota > notaFinal))
                 return false
 
             return true
@@ -43,5 +43,9 @@ export default class BancoEmMemoria {
 
     atualizaLivro(id, livro) {
         this.#livros.set(id, livro)
+    }
+
+    deletarLivro(id) {
+        this.#livros.delete(id)
     }
 }

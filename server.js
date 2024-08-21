@@ -21,7 +21,7 @@ server.post("/livros", (req, res) => {
     const livro = { titulo, autor, ano, lido, nota }
 
     const camposObrigatorios = ["titulo", "autor", "ano", "lido"]
-    const camposVazios = camposObrigatorios.filter(campo => !livro[campo])
+    const camposVazios = camposObrigatorios.filter(campo => livro[campo] == undefined)
 
     if (camposVazios.length > 0) {
         res.status(422).send({ erros: camposVazios.map(campo => `O campo ${campo} precisa ser informado!`)})
@@ -56,18 +56,24 @@ server.put("/livros/:id", (req, res) => {
         lido: lido ?? livroExistente.lido, 
         nota: nota ?? livroExistente.nota
      }
-
-    const camposObrigatorios = ["titulo", "autor", "ano", "lido"]
-    const camposVazios = camposObrigatorios.filter(campo => !livro[campo])
-
-    if (camposVazios.length > 0) {
-        res.status(422).send({ erros: camposVazios.map(campo => `O campo ${campo} precisa ser informado!`)})
-        return
-    }
     
     bancoEmMemoria.atualizaLivro(id, livro)
 
     res.status(201).send(livro)
+})
+
+server.delete("/livros/:id", (req, res) => {    
+    const { id } = req.params
+    const livroExistente = bancoEmMemoria.recuperaLivro(id)
+
+    if (!livroExistente) {
+        res.sendStatus(404)
+        return
+    }
+
+    bancoEmMemoria.deletarLivro(id)
+
+    res.sendStatus(204)
 })
 
 server.listen(port, () => {
