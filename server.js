@@ -20,7 +20,7 @@ server.post("/livros", (req, res) => {
     const camposVazios = camposObrigatorios.filter(campo => !livro[campo])
 
     if (camposVazios.length > 0) {
-        res.status(422).send({ erros: camposVazios.map(campo => `O campo ${campo} precisa ser informado!`)})
+        res.status(422).send({ erros: camposVazios.map(campo => `O campo ${campo} precisa ser informados!`)})
         return
     }
     
