@@ -36,4 +36,12 @@ export default class BancoEmMemoria {
             return true
         })
     }
+
+    recuperaLivro(id) {
+        return this.#livros.get(id)
+    }
+
+    atualizaLivro(id, livro) {
+        this.#livros.set(id, livro)
+    }
 }
