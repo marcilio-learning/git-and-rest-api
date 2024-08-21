@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "Pequeno projeto para usar os conceitos básicos de git e Rest API.",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Marcilio Sousa",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "express": "^4.19.2"
   }
 }
