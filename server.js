@@ -7,6 +7,10 @@ const port = 3001
 
 const bancoEmMemoria = new BancoEmMemoria()
 
+server.get("/livros", (req, res) => {
+    res.status(200).send(bancoEmMemoria.pesquisaLivros(req.query))
+})
+
 server.post("/livros", (req, res) => {    
     if (!req.body) {
         res.sendStatus(400)
